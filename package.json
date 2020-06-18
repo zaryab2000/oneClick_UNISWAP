@@ -15,6 +15,6 @@
   "dependencies": {
     "@truffle/hdwallet-provider": "^1.0.35",
     "fs": "0.0.1-security",
-    "openzeppelin-solidity": "^2.3.0-rc.3"
+    "@openzeppelin/contracts": "^2.4.0"
   }
 }

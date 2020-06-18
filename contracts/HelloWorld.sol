@@ -1,28 +1,18 @@
 pragma solidity >=0.4.21 <0.7.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20Detailed.sol";
-
-
-    
-
 
 contract UniswapTest{
 
-    address public tokenAddress;
+    ERC20 public token;
 
     constructor() public{
-            tokenAddress = address(new 
-            ERC20Detailed("SAPIENS","SAP",18));
+            token = new 
+            ERC20();
         }
-
-      
-
      function giveMyAddress() public view returns(address){
-        return tokenAddress;
+        return address(token);
      }
-        
-     
 }   
     
 //UNISWAP FUNCTIONS
