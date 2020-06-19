@@ -74,15 +74,16 @@ contract UniswapTest{
             token = new ERC20();
         }
 
-    function setTokenAddress() public{
-        tokenAddress = address(token);
-    }
+    //function setTokenAddress() public{
+    //    tokenAddress = address(token);
+   // }
     
      function giveMyAddress() public view returns(address){
         return tokenAddress;
      }
 
       function createPool() public{
+         tokenAddress = address(token);
          UniswapFactoryInterface uniFactory = UniswapFactoryInterface(0x9c83dCE8CA20E9aAF9D3efc003b2ea62aBC08351);
          uniFactory.createExchange(tokenAddress);
          address result = uniFactory.getExchange(tokenAddress);
