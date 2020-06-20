@@ -1,7 +1,7 @@
 pragma solidity >=0.4.21 <0.7.0;
 
 import "./UniInterface.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "./ERC20.sol";
 
 //UniswapTest.deployed().then((instance)=>{app = instance;})
 contract UniswapTest{
@@ -11,7 +11,7 @@ contract UniswapTest{
     address public exchangeAddress;
 
     constructor() public{
-            token = new ERC20();
+            token = new ERC20("Putu","PU",18,4000);
         }
 
     //function setTokenAddress() public{
