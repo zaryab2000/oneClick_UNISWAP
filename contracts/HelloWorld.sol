@@ -7,9 +7,13 @@ import "./ERC20.sol";
 contract UniswapTest{
 
     ERC20 public token;
+    bool result;
+    // bool liquidation;
     address public tokenAddress;
     address public exchangeAddress;
-
+    uint256 public maxTokens = 600*10**18;
+    uint public minTokens = 1;
+    uint256 public deadline = 1742680400;
     constructor() public{
             token = new ERC20("Putu","PU",18,4000);
         }
@@ -18,7 +22,7 @@ contract UniswapTest{
     //    tokenAddress = address(token);
    // }
     
-     function giveMyAddress() public view returns(address){
+     function giveTokenAddress() public view returns(address){
         return tokenAddress;
      }
 
@@ -27,9 +31,12 @@ contract UniswapTest{
          tokenAddress = address(token);
          UniswapFactoryInterface uniFactory = UniswapFactoryInterface(0x9c83dCE8CA20E9aAF9D3efc003b2ea62aBC08351);
          uniFactory.createExchange(tokenAddress);
-         address result = uniFactory.getExchange(tokenAddress);
-         exchangeAddress = result;
-     } 
+         address resultex = uniFactory.getExchange(tokenAddress);
+         exchangeAddress = resultex;
+         UniswapExchangeInterface uniExchange = UniswapExchangeInterface(exchangeAddress);
+         uniExchange.approve(exchangeAddress,maxTokens);
+         result =true;
+ }    
 
      //Returns the Address for the Uniswap Exchange created w.r.t the ERC20 token.
      //If this function returns an address, it is verified that the New Exchange
@@ -37,8 +44,26 @@ contract UniswapTest{
      function getExchangeAddress() public view returns(address) {
          return exchangeAddress;
      }
-     
+
+     function isApproved() public view returns(bool){
+        return result;
+     }
+     // function isLiquid() public view returns(bool){
+     //    return liquidation;
+     // }
+     function liquidate() public payable{
+        UniswapExchangeInterface uniExchange = UniswapExchangeInterface(exchangeAddress);
+        uint totalAmt = uniExchange.getEthToTokenInputPrice(msg.value);
+        token.transfer(address(this), totalAmt);
+        uniExchange.addLiquidity(minTokens,maxTokens,deadline);
+        uniExchange.addLiquidity.value(msg.value)(1, totalAmt, 60);
+    } 
 }   
     
-//UNISWAP FUNCTIONS
     
+// function addLiquidity() public payable {
+//        uniswapexchange = UniswapExchangeInterface(uniswapfactory.getExchange(ERC20TokenAddress));
+//        uint totalAmount = uniswapexchange.getEthToTokenInputPrice(msg.value);
+//        tokenInterface.transfer(address(this), totalAmount);
+//        payable(uniswapexchange.addLiquidity(totalAmount, totalAmount, 60)).transfer(msg.value);
+//     }
