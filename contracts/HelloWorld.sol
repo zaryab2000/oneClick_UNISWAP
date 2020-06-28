@@ -75,15 +75,3 @@ contract UniswapTest{
      
 }   
     
-
-
-
-
-
-// function liquidate() public payable{
-//         UniswapExchangeInterface uniExchange = UniswapExchangeInterface(exchangeAddress);
-//         uint totalAmt = uniExchange.getEthToTokenInputPrice(msg.value);
-//         token.transfer(address(this), totalAmt);
-//         uniExchange.addLiquidity(minTokens,maxTokens,deadline);
-//         uniExchange.addLiquidity.value(msg.value)(1, totalAmt, 60);
-//     } 
