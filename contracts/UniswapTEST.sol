@@ -3,7 +3,6 @@ pragma solidity >=0.4.21 <0.7.0;
 import "./UniInterface.sol";
 import "./ERC20.sol";
 
-//UniswapTest.deployed().then((instance)=>{app = instance;})
 contract UniswapTest{
 
     ERC20 public token;
@@ -15,18 +14,12 @@ contract UniswapTest{
     uint256 public deadline = 1742680400;
     
     constructor() public{
-            token = new ERC20("Putu","PU",18,5000000000000000000000);
+            token = new ERC20("TEST","TST",18,5000000000000000000000);
         }
-
-   //  function setTokenAddress() public{
-   //     tokenAddress = address(token);
-   // }
     
-     function giveTokenAddress() public view returns(address){
+     function getTokenAddress() public view returns(address){
         return tokenAddress;
      }
-
-    
 
      function  getContractBalance() public view returns(uint256){
          return address(this).balance;
@@ -45,6 +38,7 @@ contract UniswapTest{
      
 
       //Creates a New UNISWAP Exchange for the Newly created ERC20 Token
+      
       function createPool() public{
          tokenAddress = address(token);
          UniswapFactoryInterface uniFactory = UniswapFactoryInterface(0x9c83dCE8CA20E9aAF9D3efc003b2ea62aBC08351);
@@ -57,6 +51,7 @@ contract UniswapTest{
      //Returns the Address for the Uniswap Exchange created w.r.t the ERC20 token.
      //If this function returns an address, it is verified that the New Exchange
      //has been created successfully.
+     
      function getExchangeAddress() public view returns(address) {
          return exchangeAddress;
      }
