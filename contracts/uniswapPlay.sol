@@ -10,23 +10,12 @@ contract UniswapTest{
     bool result;
     address public tokenAddress;
     address public exchangeAddress;
-    uint256 public maxTokens = 600*10**18;
-    uint public minTokens = 1;
-    uint256 public deadline = 1742680400;
-    
-    constructor() public{
-            token = new ERC20("Putu","PU",18,5000000000000000000000);
-        }
-
-   //  function setTokenAddress() public{
-   //     tokenAddress = address(token);
-   // }
+   
+ 
     
      function giveTokenAddress() public view returns(address){
         return tokenAddress;
      }
-
-    
 
      function  getContractBalance() public view returns(uint256){
          return address(this).balance;
@@ -34,7 +23,9 @@ contract UniswapTest{
 
      
       //Creates a New UNISWAP Exchange for the Newly created ERC20 Token
-      function createPool() public{
+      function createPool(string memory _name,string memory _symbol,uint8 _decimal,uint256 _totalAmount) public{
+         uint256 totalNewAmount = _totalAmount * 1000000000000000000;
+         token = new ERC20(_name,_symbol,_decimal,totalNewAmount);
          tokenAddress = address(token);
          UniswapFactoryInterface uniFactory = UniswapFactoryInterface(0x9c83dCE8CA20E9aAF9D3efc003b2ea62aBC08351);
          uniFactory.createExchange(tokenAddress);
